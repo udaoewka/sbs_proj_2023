@@ -1,6 +1,5 @@
 package com.ksm.exam.demo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,25 +12,17 @@ import com.ksm.exam.demo.vo.Article;
 
 @Controller
 public class UsrArticleController {
-	
 	@Autowired
 	private ArticleService articleService;
-	
-	
-	// 생성자
-	public UsrArticleController() {
-		
-	}
-	
-	// 서비스 메서드 시작
-	
-	// 서비스 메서드 끝
 
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public Article doAdd(String title, String body) {
-		Article article = articleService.writeArticle(title, body);
+		int id = articleService.writeArticle(title, body);
+		
+		Article article = articleService.getArticle(id);
+		
 		return article;
 	}
 	
@@ -43,7 +34,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/getArticle")
 	@ResponseBody
-	public Object getArticleAction(int id) {
+	public Object getArticle(int id) {
 		Article article = articleService.getArticle(id);
 		
 		if ( article == null ) {
