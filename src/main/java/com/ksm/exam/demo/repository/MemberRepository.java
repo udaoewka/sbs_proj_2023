@@ -11,7 +11,6 @@ import com.ksm.exam.demo.vo.Member;
 
 @Mapper
 public interface MemberRepository {
-	
 	@Insert("""
 			INSERT INTO `member`
 			SET regDate = NOW(),
@@ -24,16 +23,29 @@ public interface MemberRepository {
 			email = #{email}
 			""")
 	void join(@Param("loginId") String loginId, @Param("loginPw") String loginPw, @Param("name") String name, @Param("nickname") String nickname, @Param("cellphoneNo") String cellphoneNo, @Param("email") String email);
-	
+
 	@Select("""
-			SELECT * FROM `member` ORDER BY id DESC
+			SELECT *
+			FROM `member`
+			ORDER BY
+			id DESC
 			""")
 	List<Member> getMembers();
-	
+
 	@Select("SELECT LAST_INSERT_ID()")
 	int getLastInsertId();
 	
-	@Select("SELECT * FROM `member` AS M WHERE M.id = #{id}")
+	@Select("""
+			SELECT *
+			FROM `member` AS M
+			WHERE M.id = #{id}
+			""")
 	Member getMemberById(@Param("id") int id);
-	
+
+	@Select("""
+			SELECT *
+			FROM `member` AS M
+			WHERE M.loginId = #{loginId}
+			""")
+	Member getMemberByLoginId(@Param("loginId") String loginId);
 }
