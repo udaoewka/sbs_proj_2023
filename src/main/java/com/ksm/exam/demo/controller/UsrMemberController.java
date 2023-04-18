@@ -11,6 +11,8 @@ import com.ksm.exam.demo.utill.Ut;
 import com.ksm.exam.demo.vo.Member;
 import com.ksm.exam.demo.vo.ResultData;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class UsrMemberController {
 	private MemberService memberService;
@@ -55,6 +57,38 @@ public class UsrMemberController {
 		Member member = memberService.getMemberById(joinRd.getData1());
 		
 		return ResultData.newData(joinRd, member);
+	}
+	
+	@RequestMapping("/usr/member/doLogin")
+	@ResponseBody
+	public ResultData<Member> doLogin(HttpSession httpSession, String loginId, String loginPw) {
+		boolean isLogined = false;
+		
+		if(httpSession.getAttribute("loginedmemberId") != null) {
+			isLogined = true;
+		}
+			
+		if ( Ut.empty(loginId)) {
+			return ResultData.from("F-1", "loginId(을)를 입력해주세요.");
+		}
+		
+		if ( Ut.empty(loginPw)) {
+			return ResultData.from("F-2", "loginPw(을)를 입력해주세요.");
+		}
+		
+		Member member = memberService.getMemberByLoginId(loginId);
+		
+		if(member == null) {
+			return ResultData.from("F-3", "존재하지 않은 로그인아이디 입니다.");
+		}
+		
+		if(member.getLoginPw().equals(loginPw) == false) {
+			return ResultData.from("F-4", "비밀번호가 일치하지 않습니다.");
+		}
+		
+		httpSession.setAttribute("loginedmemberId", member.getLoginId());
+		
+		return ResultData.from("S-1", Ut.f("%s님 환영합니다.", member.getNickname()));
 	}
 	
 	@RequestMapping("/usr/member/getMembers")
