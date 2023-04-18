@@ -28,6 +28,14 @@ updateDate = NOW(),
 title = '제목3',
 `body` = '내용3';
 
+# 게시물 테이블에 회원정보 추가
+ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateDate`;
+
+# 기존 게시물의 작성자를 2번으로 지정
+UPDATE article
+SET memberId = 2;
+WHERE memberid = 0;
+
 SELECT * FROM article;
 
 // member
