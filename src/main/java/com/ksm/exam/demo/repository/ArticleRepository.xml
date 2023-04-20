@@ -3,10 +3,12 @@
 <mapper	namespace="com.ksm.exam.demo.repository.ArticleRepository">
 	
 	<select id="getArticles" resultType="Article">
-		SELECT *
-		FROM article
+		SELECT A.*, M.nickname as extra_writerName
+		FROM article as A
+		LEFT JOIN member AS M
+		ON A.memberId = m.id
 		ORDER BY
-		id DESC
+		A.id DESC
 	</select>
 	
 	<select id="getArticle" resultType="Article">
