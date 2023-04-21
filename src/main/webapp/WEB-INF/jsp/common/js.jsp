@@ -3,16 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script>
-	var historyBack = '${historyBak}' == 'true';
+	var historyBack = 'true' == 'true';
 	var msg = '${msg}'.trim();
-	if(msg) {
+	if (msg) {
 		alert(msg);
 	}
-	if(historyBack) {
+	
+	if (historyBack) {
 		history.back();
 	}
-	var replaceUri = '${repllaceUri}'.trim();
-	if(replaceUri){
+	
+	var replaceUri = '${replaceUri}'.trim();
+	if (replaceUri) {
 		location.replaceUri(replaceUri);
 	}
 </script>
