@@ -26,12 +26,10 @@
         </thead>
         <tbody>
           <c:forEach var="article" items="${articles}">
-          <fmt:formatDate var="regDate" pattern="YYYY-MM월dd일" value="${article.regDate}"/>
-          <fmt:formatDate var="updateDate" pattern="YYYY-MM월dd일" value="${article.updateDate}"/>
             <tr>
               <td>${article.id}</td>
-              <td>${regDate}</td>
-              <td>${updateDate}</td>
+              <td>${article.getRegDateForPrint()}</td>
+              <td>${article.getUpdateDateForPrint()}</td>
               <td>${article.extra_writerName}</td>
               <td>
                 <a href="../article/detail?id=${article.id}">${article.title}</a>
