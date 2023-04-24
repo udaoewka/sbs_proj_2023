@@ -27,7 +27,6 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
-			
 		if ( Ut.empty(loginId) ) {
 			return ResultData.from("F-1", "loginId(을)를 입력해주세요.");
 		}
@@ -64,21 +63,18 @@ public class UsrMemberController {
 		Member member = memberService.getMemberById(joinRd.getData1());
 		
 		return ResultData.newData(joinRd, "member", member);
-		
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpServletRequest req) {
-		
+	public String doLogout() {
 		if ( !rq.isLogined() ) {
-			return rq.jsHistoryBack("로그아웃 상태입니다.");
+			return rq.jsHistoryBack("이미 로그아웃 상태입니다.");
 		}
 		
 		rq.logout();
 		
 		return rq.jsReplace("로그아웃 되었습니다.", "/");
-		
 	}
 	
 	@RequestMapping("/usr/member/login")
@@ -88,18 +84,17 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
-		
+	public String doLogin(String loginId, String loginPw) {
 		if ( rq.isLogined() ) {
 			return rq.jsHistoryBack("이미 로그인되었습니다.");
 		}
 		
 		if ( Ut.empty(loginId) ) {
-			return Ut.jsHistoryBack("로그인아이디를 입력해주세요.");
+			return rq.jsHistoryBack("loginId(을)를 입력해주세요.");
 		}
 		
 		if ( Ut.empty(loginPw) ) {
-			return rq.jsHistoryBack("로그인비밀번호를 입력해주세요.");
+			return rq.jsHistoryBack("loginPw(을)를 입력해주세요.");
 		}
 		
 		Member member = memberService.getMemberByLoginId(loginId);
@@ -115,7 +110,6 @@ public class UsrMemberController {
 		rq.login(member);
 		
 		return rq.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()), "/");
-		
 	}
 	
 	@RequestMapping("/usr/member/getMembers")
