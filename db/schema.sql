@@ -130,3 +130,11 @@ WHERE id IN(3);
 
 SELECT * FROM board WHERE id = 1;
 SELECT * FROM board WHERE id = 2;
+
+# 게시물 개수 늘리기
+INSERT INTO article
+(
+    regDate, updateDate, memberId, boardId, title, `body`
+)
+SELECT NOW(), NOW(), FLOOR(RAND() *2) + 1, FLOOR(RAND() *2) + 1, CONCAT('제목_', RAND()), CONCAT('내용_', RAND())
+FROM article;
