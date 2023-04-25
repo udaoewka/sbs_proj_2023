@@ -138,3 +138,7 @@ INSERT INTO article
 )
 SELECT NOW(), NOW(), FLOOR(RAND() *2) + 1, FLOOR(RAND() *2) + 1, CONCAT('제목_', RAND()), CONCAT('내용_', RAND())
 FROM article;
+
+# 공지사항 게시판 조회수 추가
+ALTER TABLE article
+ADD COLUMN hitcount INT(10) UNSIGNED NOT NULL DEFAULT 0;
