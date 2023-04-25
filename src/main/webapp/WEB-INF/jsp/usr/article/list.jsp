@@ -49,7 +49,7 @@
               <td>${article.id}</td>
               <td>${article.getRegDateForPrint()}</td>
               <td>${article.getUpdateDateForPrint()}</td>
-              <td>${article.extra_writerName}</td>
+              <td>${article.extra__writerName}</td>
               <td>
                 <a class="btn-text-link block w-full truncate" href="../article/detail?id=${article.id}">${article.title}</a>
               </td>

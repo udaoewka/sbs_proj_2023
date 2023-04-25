@@ -57,10 +57,10 @@ public class ArticleService {
 		}
 		
 		ResultData actorCanDelteRd = actorCanDelete(actorId, article);
-		article.setExtra_actorCanDelete(actorCanDelteRd.isSuccess());
+		article.setExtra__actorCanDelete(actorCanDelteRd.isSuccess());
 		
 		ResultData actorCanModifyRd = actorCanModify(actorId, article);
-		article.setExtra_actorCanModify(actorCanModifyRd.isSuccess());
+		article.setExtra__actorCanModify(actorCanModifyRd.isSuccess());
 		
 	}
 	
@@ -117,5 +117,15 @@ public class ArticleService {
 
 	public int getArticlesCount(int boardId, String searchKeywordTypeCode, String searchKeyword) {
 		return articleRepository.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
+	}
+	
+	public ResultData increaseHitCount(int id) {
+		int afftectedRowsCount = articleRepository.increaseHitCount(id);
+		
+		if(afftectedRowsCount == 0) {
+			return ResultData.from("F-1", "해당 게시물이 존재하지 않습니다.","afftectedRowsCount", afftectedRowsCount);
+		}
+		
+		return ResultData.from("S-1", "죄회수가 증가되었습니다.", "afftectedRowsCount", afftectedRowsCount);
 	}
 }
