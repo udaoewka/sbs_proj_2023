@@ -70,12 +70,12 @@ $(function() {
             <td>
             	<div class="flex items-center">
             		<span class="badge badge-primary article-detail__hit-count">${article.goodReactionPoint}</span>
-            		<spna>&nbsp;</spna>
+            		<span>&nbsp;</span>
             		
             		<c:if test="${actorCanMakeReactionPoint }">
-	            		<button class="btn btn-outline btn-primary">좋아요 👍</button>
-	            		<spna>&nbsp;</spna>
-	            		<button class="btn btn-outline btn-secondary">싫어요 👎</button>
+	            		<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri }" class="btn btn-outline btn-primary">좋아요 👍</a>
+	            		<span>&nbsp;</span>
+	            		<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri }" class="btn btn-outline btn-secondary">싫어요 👎</a>
             		</c:if>
             	</div>
 			</td>
