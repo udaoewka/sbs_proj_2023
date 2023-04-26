@@ -1,7 +1,5 @@
 package com.ksm.exam.demo.vo;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +17,10 @@ public class Article {
 	private String body;
 	private String hitCount;
 	
+	private int extra__sumReactionPoint;
+	private int extra__goodReactionPoint;
+	private int extra__badReactionPoint;
+	
 	private String extra__writerName;
 	private boolean extra__actorCanDelete;
 	private boolean extra__actorCanModify;
@@ -29,5 +31,13 @@ public class Article {
 	
 	public String getUpdateDateForPrint() {
 		return updateDate.substring(2, 16);
+	}
+	
+	public String forPrintintType1RegDate() {
+		return regDate.substring(2, 16).replace(" ", "<br>");
+	}
+
+	public String forPrintintType1UpdateDate() {
+		return updateDate.substring(2, 16).replace(" ", "<br>");
 	}
 }
