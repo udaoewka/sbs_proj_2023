@@ -20,18 +20,19 @@ function ArticleDetail__increseHitCount() {
 	
 	$.get(
 		'../article/doIncreaseHitCountRd', {
-			id : params.id
+			id : params.id,
+			ajaxMode : 'Y'
 		}, function(data) {
 			$('.article-detail__hit-count').empty().html(data.data1);
 		}, 'json');
 }
 
 $(function() {
-	// 실전 코드
-	ArticleDetail__increseHitCount();
+	// 실전코드
+	// ArticleDetail__increseHitCount();
 	
 	// 임시코드
-	//setTimeout(ArticleDetail__increseHitCount, 300);
+	setTimeout(ArticleDetail__increseHitCount, 300);
 })
 </script>
 
@@ -62,20 +63,46 @@ $(function() {
           <tr>
             <th>조회수</th>
             <td>
-            	<span class="badge badge-primary article-detail__hit-count">${article.hitCount}</span>
+            	<span class="text-blue-700 article-detail__hit-count">${article.hitCount}</span>
 			</td>
           </tr>
           <tr>
             <th>추천</th>
             <td>
             	<div class="flex items-center">
-            		<span class="badge badge-primary article-detail__hit-count">${article.goodReactionPoint}</span>
+            		<span class="text-blue-700">${article.goodReactionPoint}</span>
             		<span>&nbsp;</span>
             		
-            		<c:if test="${actorCanMakeReactionPoint }">
-	            		<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri }" class="btn btn-outline btn-primary">좋아요 👍</a>
+            		<c:if test="${actorCanMakeReaction}">
+	            		<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-outline btn-primary">
+	            			좋아요 👍
+	            		</a>
 	            		<span>&nbsp;</span>
-	            		<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri }" class="btn btn-outline btn-secondary">싫어요 👎</a>
+						<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-outline btn-secondary">
+							싫어요 👎
+						</a>
+            		</c:if>
+            		
+            		<c:if test="${actorCanCancelGoodReaction}">
+	            		<a href="/usr/reactionPoint/doCancelGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-primary">
+	            			좋아요 👍
+	            		</a>
+	            		<span>&nbsp;</span>
+						<a onclick="alert(this.title); return false;" title="먼저 좋아요를 취소해주세요." href="#" class="btn btn-xs btn-outline btn-secondary">
+							싫어요 👎
+						</a>
+            		</c:if>
+            		
+            		<c:if test="${actorCanCancelBadReaction}">
+	            		<a onclick="alert(this.title); return false;" title="먼저 싫어요를 취소해주세요." href="#"
+	            		class="btn btn-xs btn-outline btn-primary">
+	            			좋아요 👍
+	            		</a>
+	            		<span>&nbsp;</span>
+						<a href="/usr/reactionPoint/doCancelBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+						class="btn btn-xs btn-secondary">
+							싫어요 👎
+						</a>
             		</c:if>
             	</div>
 			</td>
@@ -108,13 +135,4 @@ $(function() {
 	</div>
   </div>
 </section>
-
-
-<!--
-<iframe src="http://localhost:8011/usr/article/doIncreaseHitCountRd?id=1" frameborder="0"></iframe>
-
-<script>
-location.href= "http://localhost:8011/usr/article/doIncreaseHitCountRd?id=1";
-</script>
- -->
  <%@include file="../common/foot.jspf" %>
