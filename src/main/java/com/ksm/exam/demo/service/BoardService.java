@@ -2,6 +2,7 @@ package com.ksm.exam.demo.service;
 
 import org.springframework.stereotype.Service;
 
+import com.ksm.exam.demo.repository.BoardRepository;
 import com.ksm.exam.demo.vo.Board;
 
 @Service

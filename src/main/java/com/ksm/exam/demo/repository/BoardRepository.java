@@ -1,4 +1,4 @@
-package com.ksm.exam.demo.service;
+package com.ksm.exam.demo.repository;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

@@ -304,3 +304,31 @@ relId = 2,
 `body` = '댓글 4';
 
 SELECT * FROM reply;
+
+
+SELECT R.*,
+M.nickname AS extra__writerName
+FROM reply AS R
+LEFT JOIN `member` AS M
+ON R.memberId = M.id
+WHERE R.relTypeCode = #{relTypeCode}
+AND R.relId = #{relId}
+ORDER BY R.id DESC
+
+# 댓글에 좋아요 수, 싫어요 수 컬럼 추가
+ALTER TABLE reply
+ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+ALTER TABLE reply
+ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# 컬럼의 인덱스 추가
+ALTER TABLE reply ADD INDEX (`relTypeCode`, `relId`);
+
+EXPLAIN SELECT R.*,
+M.nickname AS extra__writerName
+FROM reply AS R
+LEFT JOIN `member` AS M
+ON R.memberId = M.id
+WHERE R.relTypeCode = #{relTypeCode}
+AND R.relId = #{relId}

@@ -37,6 +37,7 @@ $(function() {
 </script>
 
 <script>
+	// 댓글작성 관련
 	let ReplyWrite__submitFormDone = false;
 	function ReplyWrite__submitForm(form) {
 		if(ReplyWrite__submitFormDone){
@@ -45,6 +46,21 @@ $(function() {
 		
 		// 좌우공백 제거
 		form.body.value = form.body.value.trim();
+		
+		if(form.body.value.length == 0){
+			alert("댓글을 입력해주세요.")
+			form.body.focus();
+			return;
+		}
+		
+		if(form.body.value.length < 2){
+			alert("댓글을 2자 이상 입력해주세요.")
+			form.body.focus();
+			return;
+		}
+		
+		ReplyWrite__submitFormDone = true;
+		form.submit();
 	}
 </script>
 
@@ -161,13 +177,17 @@ $(function() {
 		    </colgroup>
 	        <tbody>
 	          <tr>
+	            <th>relId</th>
+	            <td>${article.id }</td>
+	          </tr>
+	          <tr>
 	            <th>작성자</th>
 	            <td>${rq.loginedMember.nickname }</td>
 	          </tr>
 	          <tr>
 	            <th>내용</th>
 	            <td>
-	              <textarea type="text" class="w-full textarea textarea-bordered" name="body" placeholder="내용" ></textarea>
+	              <textarea class="w-full textarea textarea-bordered" name="body" placeholder="내용" ></textarea>
 	            </td>
 	          </tr>
 	          <tr>
@@ -184,6 +204,12 @@ $(function() {
 		<a class="btn btn-link" href="/usr/member/login">로그인</a>후 이용해주세요
 	</c:if>
   </div>
+</section>
+
+<section class="mt-5">
+	<div class="container mx-auto px-3">
+		<h1>댓글리스트 (${repliesCount })</h1>
+	</div>
 </section>
 
  <%@include file="../common/foot.jspf" %>
