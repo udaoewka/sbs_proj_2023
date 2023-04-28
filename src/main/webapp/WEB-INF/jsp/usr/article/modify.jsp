@@ -3,9 +3,37 @@
 <c:set var="pageTitle" value="게시물 수정"/>
 <%@include file="../common/head.jspf" %>
 
+<script>
+	// 댓글작성 관련
+	let ArticleModify__submitDone = false;
+	function ArticleModify__submitForm(form) {
+		if ( ArticleModify__submitDone ) {
+			return;
+		}    
+		
+		// 좌우공백 제거
+		form.body.value = form.body.value.trim();
+		
+		if ( form.body.value.length == 0 ) {
+			alert('댓글을 입력해주세요.');
+			form.body.focus();
+			return;
+		}
+		
+		if ( form.body.value.length < 2 ) {
+			alert('댓글을 2자 이상 입력해주세요.');
+			form.body.focus();
+			return;
+		}
+		
+		ArticleModify__submitDone = true;
+		form.submit();		
+	}
+</script>
+
 <section class="mt-5">
   <div class="container mx-auto px-3">
-	<form class="table-box-type-1" method="POST" action="../article/doModify">
+	<form class="table-box-type-1" method="POST" action="../article/doModify" onsubmit="ArticleModify__submit">
 	  <input type="hidden" name="id" value="${article.id}"/>
 	
       <table>
@@ -36,7 +64,7 @@
 			</td>
           </tr>
           <tr>
-            <th>추천수</th>
+            <th>추천</th>
             <td>
             	<span class="badge badge-primary article-detail__hit-count">${article.goodReactionPoint}</span>
 			</td>
@@ -50,7 +78,7 @@
           <tr>
             <th>내용</th>
             <td>
-              <textarea type="text" class="w-full textarea textarea-bordered" name="body" placeholder="내용" >${article.body}</textarea>
+              <textarea class="w-full textarea textarea-bordered" name="body" placeholder="내용" >${article.body}</textarea>
             </td>
           </tr>
         </tbody>
