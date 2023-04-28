@@ -5,41 +5,43 @@
 <%@include file="../common/head.jspf" %>
 
 <section class="mt-5">
-  <div class="container mx-auto">
-  	<table>
-  		<colgroup>
-  			<col width="200"/>
-  		</colgroup>
-  		<tbody>
-  			<tr>
-  				<th>로그인아이디</th>
-  				<td>${rq.loginedMember.loginId }</td>
-  			</tr>
-  			<tr>
-  				<th>이름</th>
-  				<td>${rq.loginedMember.name }</td>
-  			</tr>
-  			<tr>
-  				<th>닉네임</th>
-  				<td>${rq.loginedMember.nickname }</td>
-  			</tr>
-  			<tr>
-  				<th>이메일</th>
-  				<td>${rq.loginedMember.email }</td>
-  			</tr>
-  			<tr>
-  				<th>휴대폰</th>
-  				<td>${rq.loginedMember.phone }</td>
-  			</tr>
-  			<tr>
-  				<th>비고</th>
-  				<td>
-  					<a href="../member/checkPassword" class="btn btn-primay">회원정보수정</a>
-  					<button type="button" class="btn btn-outline btn-info" onclick="history.back();">뒤로가기</button>
-  				</td>
-  			</tr>
-  		</tbody>
-  	</table>
+	<div class="">
+		<div class="container mx-auto">
+			<table>
+				<colgroup>
+					<col width="200"/>
+				</colgroup>
+				<tbody>
+					<tr>
+						<th>로그인아이디</th>
+						<td>${rq.loginedMember.loginId }</td>
+					</tr>
+					<tr>
+						<th>이름</th>
+						<td>${rq.loginedMember.name }</td>
+					</tr>
+					<tr>
+						<th>닉네임</th>
+						<td>${rq.loginedMember.nickname }</td>
+					</tr>
+					<tr>
+						<th>이메일</th>
+						<td>${rq.loginedMember.email }</td>
+					</tr>
+					<tr>
+						<th>휴대폰</th>
+						<td>${rq.loginedMember.cellphoneNo }</td>
+					</tr>
+					<tr>
+						<th>비고</th>
+						<td>
+							<a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify') }" class="btn btn-primay">회원정보수정</a>
+							<button type="button" class="btn btn-outline btn-info" onclick="history.back();">뒤로가기</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
    </div>
 </section>
 
