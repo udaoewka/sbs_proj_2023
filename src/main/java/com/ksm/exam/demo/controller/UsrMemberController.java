@@ -125,7 +125,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/checkPassword")
 	public String checkPassword() {
-		return "usr/member/myPage";
+		return "usr/member/checkPassword";
 	}
 	
 	@RequestMapping("/usr/member/doCheckPassword")
@@ -134,6 +134,12 @@ public class UsrMemberController {
 		
 		if(rq.getLoginedMember().getLoginPw().equals(loginPw) == false) {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
+		}
+		
+		if(replaceUri.equals("../member/modify")) {
+			String memberModifyAuthKey = memberService.genMemberModifyAuthKey(rq.getLoginedMemberId());
+			
+			replaceUri += "?memberModifyAuthKey=" + memberModifyAuthKey;
 		}
 		
 		return rq.jsReplace("", replaceUri);
