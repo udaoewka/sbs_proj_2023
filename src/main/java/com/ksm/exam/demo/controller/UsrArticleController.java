@@ -41,6 +41,9 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
 	public String doWrite(int boardId, String title, String body, String replaceUri) {
+		if(Ut.empty(boardId)) {
+			return rq.jsHistoryBack("게시판(을)를 입력해주세요.");
+		}
 		if (Ut.empty(title)) {
 			return rq.jsHistoryBack("title(을)를 입력해주세요.");
 		}
