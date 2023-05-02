@@ -4,9 +4,8 @@
 <%@include file="../common/head.jspf" %>
 
 <script>
-	// 댓글작성 관련
 	let ReplyModify__submitDone = false;
-	function ReplyModify__submitForm(form) {
+	function ReplyModify__submit(form) {
 		if ( ReplyModify__submitDone ) {
 			return;
 		}    
@@ -15,13 +14,7 @@
 		form.body.value = form.body.value.trim();
 		
 		if ( form.body.value.length == 0 ) {
-			alert('댓글을 입력해주세요.');
-			form.body.focus();
-			return;
-		}
-		
-		if ( form.body.value.length < 2 ) {
-			alert('댓글을 2자 이상 입력해주세요.');
+			alert('내용을 입력해주세요.');
 			form.body.focus();
 			return;
 		}
@@ -35,6 +28,7 @@
   <div class="container mx-auto px-3">
 	<form class="table-box-type-1" method="POST" action="../reply/doModify" onsubmit="ReplyModify__submit">
 	  <input type="hidden" name="id" value="${reply.id}"/>
+	  <input type="hidden" name="replaceUri" value="${param.replaceUri}"/>
 	
       <table>
       <colgroup>
@@ -58,7 +52,7 @@
             <td>${reply.getUpdateDateForPrint()}</td>
           </tr>
           <tr>
-            <th>작성자</th>
+            <th>댓글 작성자</th>
             <td>${reply.extra__writerName}</td>
           </tr>
           <tr>
@@ -70,18 +64,18 @@
           <tr>
             <th>내용</th>
             <td>
-              <textarea type="text" class="w-full textarea textarea-bordered" name="body" placeholder="내용" >${reply.body}</textarea>
+              <textarea rows="5" class="w-full textarea textarea-bordered" name="body" placeholder="내용" >${reply.body}</textarea>
             </td>
           </tr>
           <tr>
             <th>댓글 수정</th>
             <td>
-            	<input type="submit" />
-            	<button type="button"></button>
-			</td>
+              <input type="submit" class="btn btn-primary" value="댓글 수정"/>
+              <a class="btn btn-outline btn-primary" href="${param.replaceUri}">뒤로가기</a>
+            </td>
           </tr>
         </tbody>
-      </table>   
+      </table>
 	</form>
   </div>
 </section>

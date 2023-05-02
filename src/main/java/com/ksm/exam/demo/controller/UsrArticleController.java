@@ -40,10 +40,10 @@ public class UsrArticleController {
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(int boardId, String title, String body, String replaceUri) {
-		if(Ut.empty(boardId)) {
-			return rq.jsHistoryBack("게시판(을)를 입력해주세요.");
-		}
+	public String doWrite(@RequestParam(defaultValue = "1") int boardId, String title, String body, String replaceUri) {
+		/*
+		 * if(Ut.empty(boardId)) { return rq.jsHistoryBack("게시판(을)를 입력해주세요."); }
+		 */
 		if (Ut.empty(title)) {
 			return rq.jsHistoryBack("title(을)를 입력해주세요.");
 		}
